@@ -1,12 +1,12 @@
 # Born2beroot
 
-BH(Mandatory): 12.06
-Circle: 01
-Date: 2022/01/13
-Description: This project aims to introduce you to the wonderful world of virtualization.
-Skills: Network & system administration, Rigor
-XP: 577
-hours: 40
+BH(Mandatory): 12.06  
+Circle: 01  
+Date: 2022/01/13  
+Description: This project aims to introduce you to the wonderful world of virtualization.  
+Skills: Network & system administration, Rigor  
+XP: 577  
+hours: 40  
 
 ## Subject
 
