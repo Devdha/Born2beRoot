@@ -14,10 +14,6 @@ hours: 40
 
 [https://github.com/chichoon/subject_ko/blob/born2beroot/born2beroot/born2beroot_ko.md](https://github.com/chichoon/subject_ko/blob/born2beroot/born2beroot/born2beroot_ko.md#Chapter-6)
 
-## Evaluation
-
-[https://tonyhan18.tistory.com/218](https://tonyhan18.tistory.com/218)
-
 ## 요구사항
 
 ### 제출
