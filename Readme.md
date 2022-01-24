@@ -2,7 +2,7 @@
 
 BH(Mandatory): 12.06  
 Circle: 01  
-Date: 2022/01/13  
+Date: 2022/01/13 → 2022/01/23  
 Description: This project aims to introduce you to the wonderful world of virtualization.  
 Skills: Network & system administration, Rigor  
 XP: 577  
@@ -14,18 +14,22 @@ hours: 40
 
 [https://github.com/chichoon/subject_ko/blob/born2beroot/born2beroot/born2beroot_ko.md](https://github.com/chichoon/subject_ko/blob/born2beroot/born2beroot/born2beroot_ko.md#Chapter-6)
 
+## Evaluation
+
+[https://tonyhan18.tistory.com/218](https://tonyhan18.tistory.com/218)
+
 ## 요구사항
 
 ### 제출
 
-- 과제 제출 시, `git` 저장소의 루트에 `signature.txt`(가상머신의 디스크 서명) 제출
+- 과제 제출 시, `git` 저장소의 루트에 `signature.txt`(가상머신의 디스크 서명) 제출 ✔️
 
 ### 가상 머신
 
 - `Virtualbox` (사용이 불가능 한 경우, `UTM`) 사용은 필수 ✔️
 - 그래픽 인터페이스 사용 금지 ✔️
 - `Debian` 또는 `CentOS`, 최신 stable 버전 하나 선택 ✔️
-- `Debian`은 `AppArmor`, `CentOS`는 `SELinux`를 시작 시에 구동
+- `Debian`은 `AppArmor`, `CentOS`는 `SELinux`를 시작 시에 구동 ✔️
 - `LVM`을 이용하여 최소 2개의 암호화된 파티션 생성 ✔️
 - `aptitude`와 `apt`의 차이점 인지 ✔️
 - `SELinux` 또는 `AppArmor`이 무엇인지 알고 있어야 함 ✔️
@@ -63,7 +67,7 @@ hours: 40
 - 서버가 시작될 때, 스크립트는 모든 터미널에 아래 목록의 내용을 10분에 한 번씩 보여야 한다.
 (`wall`을 참고)
 배너는 선택사항이고, 오류가 보이면 안된다.
-    - 사용하는 운영체제의 아키텍쳐와 커널 버전✔️
+    - 사용하는 운영체제의 아키텍쳐와 커널 버전 ✔️
     - 물리 프로세서의 개수 ✔️
     - 가상 프로세서의 개수 ✔️
     - 서버 내에서 사용가능한 램과 가동률을 백분율로 표시 ✔️
@@ -88,23 +92,67 @@ hours: 40
     
     ![Screen Shot 2022-01-13 at 8.00.06 PM.png](Born2beroot%20afe2dccdcc2749b2b2a9418725a34bd9/Screen_Shot_2022-01-13_at_8.00.06_PM.png)
     
-- 우측 서비스를 이용하여 동작하는 `WordPress` 웹 사이트를 설정해라: lighttpd, MariaDB, and PHP.
-- 유용하다고 판단하는 서비스를 사용해봐라(`NGINX` / `Apache2` 제외), 평가 시 합당한 이유를 제시해야 한다.
+- 우측 서비스를 이용하여 동작하는 `WordPress` 웹 사이트를 설정해라: lighttpd, MariaDB, and PHP. ✔️
+- 유용하다고 판단하는 서비스를 사용해봐라(`NGINX` / `Apache2` 제외), 평가 시 합당한 이유를 제시해야 한다. ✔️
 (추가적인 서비스 구성 시, `UFW`룰 아래에서 필요한 포트를 더 열 수 있다.)
-- 보너스 파트는 필수 파트가 오류 및 오작동 없이 잘 작동할 때만 고려된다.
+- 보너스 파트는 필수 파트가 오류 및 오작동 없이 잘 작동할 때만 고려된다. ✔️
 
 ## 구현
 
-- (치팅 방지를 위해 구현 부분은 개인 노션에 정리하였습니다.)
+> VirtualBox를 이용한 가상환경 설정
+    
+    ![Screen Shot 2022-01-24 at 4.20.38 PM.png](Born2beroot%20afe2dccdcc2749b2b2a9418725a34bd9/Screen_Shot_2022-01-24_at_4.20.38_PM.png)
+    
+> Partition
+    
+    보너스 파트에서 요구하는 바와 같이 파티션 설정
+    
+    ![Screen Shot 2022-01-24 at 4.16.40 PM.png](Born2beroot%20afe2dccdcc2749b2b2a9418725a34bd9/Screen_Shot_2022-01-24_at_4.16.40_PM.png)
+    
+> SSH Connection
+    
+    SSH로 4242 포트에 접근하여 가상 환경 원격 접속
+    
+    ![Screen Shot 2022-01-24 at 4.17.02 PM.png](Born2beroot%20afe2dccdcc2749b2b2a9418725a34bd9/Screen_Shot_2022-01-24_at_4.17.02_PM.png)
+    
+> System monitoring
+    
+    [monitoring.sh](http://monitoring.sh) 파일을 생성하여 시스템 모니터링(`cron` 명령어를 이용하여 10분마다 확인)
+    
+    ![Screen Shot 2022-01-24 at 4.17.34 PM.png](Born2beroot%20afe2dccdcc2749b2b2a9418725a34bd9/Screen_Shot_2022-01-24_at_4.17.34_PM.png)
+    
+> Wordpress Web
+    
+    보너스 파트에서 요구하는 Wordpress Web을 구현하기 위해 `Lighttpd`, `MariaDB`, `PHP`, `Wordpress`를 설치하여 가상환경에서 구동
+    
+    - 웹 서버: `Lighttpd`
+    - 데이터베이스: `MariaDB`
+    
+    ![Screen Shot 2022-01-24 at 4.18.16 PM.png](Born2beroot%20afe2dccdcc2749b2b2a9418725a34bd9/Screen_Shot_2022-01-24_at_4.18.16_PM.png)
+    
+> Git server
+    
+    유용한 서비스로 `Git` 을 선택, 현업에서 사용 가능한 서비스로 고려되었다.
+    
+    서버 내에 `/srv/git/` 디렉토리를 생성하여 깃 레포를 관리하였음
+    
+    기본적인 설정만 하였으며, 접속 방식은 여러가지가 있지만 위에서 설정한 SSH 방식으로 접속
+    
+    아래 사진은 `clone` 및 `push` 예시
+    
+    ![Screen Shot 2022-01-24 at 4.20.15 PM.png](Born2beroot%20afe2dccdcc2749b2b2a9418725a34bd9/Screen_Shot_2022-01-24_at_4.20.15_PM.png)
+    
+
+*(치팅 방지를 위해 구현 방식은 개인 노션에 정리하였습니다.)*
         
 
 ## 새로운 개념
 
-- Virtual box
+> Virtual box
     
     오라클이 배포하는 컴퓨터 가상화 프로그램
     
-- 가상머신
+> 가상머신
     - 가상 머신이란?
         
         물리적으로 존재하는 컴퓨터가 아닌, 다른 컴퓨터가 만들어내는 가상의 컴퓨터
@@ -164,18 +212,18 @@ hours: 40
             ![Screen Shot 2022-01-21 at 8.06.20 PM.png](Born2beroot%20afe2dccdcc2749b2b2a9418725a34bd9/Screen_Shot_2022-01-21_at_8.06.20_PM.png)
             
         
-- Disk signature
+> Disk signature
     
     디스크 서명은 하드 디스크 또는 기타 저장 장치의 MBR에 저장된 고유한 식별 번호
     (과제 제출자가 생성한 디스크 서명과 보여주는 과제의 디스크 서명이 동일한 지 대조하는 이유)
     
-- Linux
+> Linux
     - Unix 계열의 운영체제
     - 공개 운영체제
     - PC용 OS보다 안정적이고, 보안에서도 우수한 성능을 보인다.
     - 다양한 네트워킹 기술 제공, 서버용으로 적합
     - 배포판이 아닌 리눅스 자체는 무료
-- Debian(OS)
+> Debian(OS)
     - Debian: 데비안 프로젝트에서 개발하고 있는 리눅스 배포판
         - 적극적인 `비자유(클로즈드, 사유) 소스 소프트웨어` 배제
         - 긴 업데이트 주기
@@ -226,7 +274,7 @@ hours: 40
                     
         - 파일 시스템: `EXT4`(16TB 까지 지원)
         - 업그레이드가 수월하다.
-- CentOS
+> CentOS
     - Community Enterprise Operating System(CentOS)
         - RHEL(레드햇 엔터프라이즈 리눅스)에서 파생된 리눅스의 배포판
         - RHEL의 소스를 그대로 사용하기 때문에, OS 버전, Kernel 버전, 패키지 구성이 같다.
@@ -238,7 +286,7 @@ hours: 40
         - RHEL을 유료로 판매하자, 몇몇 사람들이 소스코드를 가지고 레드햇 관련 상표권을 모두 제거하고 만든 것이 CentOS이다.(그래서 무료지만, 기술 지원이 없다.)
         - 패키지 관리에 `RPM` 포맷과 `YUM/DNF` 패키지 매니저 사용
         - 파일 시스템: `XFS`(확장 가능한 고 가용성 파일 시스템)
-- AppArmor & SELinux
+> AppArmor & SELinux
     
     둘 모두 Security framework이며, LSM(Linux Security Module)을 기반으로 구현됨
     
@@ -293,7 +341,7 @@ hours: 40
         - MAC(강제 접근 제어, Mandatory Access Control)
             - 미리 정해진 정책과 보안 등급에 따라 주체에게 허용된 접근 권한과 객체에게 부여된 등급을 비교하여 접근을 통제하는 모델
             - 높은 보안을 요구하는 정보는 낮은 보안 수준의 주체가 접근할 수 없으며, 소유자라고 해도 정책에 어긋나면 객체에 접근할 수 없으므로 강력한 보안을 제공
-- LVM
+> LVM
     - Logical Volume Manager의 약자
     논리 볼륨을 효율적이고 유연하게 관리하기 위한 커널의 한 부분이자 프로그램
     - 기존 방식은 파일 시스템을 블록 장치에 직접 접근해서 읽고 쓰기를 헀다면,
@@ -332,7 +380,7 @@ hours: 40
         우리는 하나의 디스크를 여러 개의 파티션으로 나누어 사용할 수 있다.
         이때, 볼륨은 파티션마다 하나씩 존재하기도, 여러 파티션에 하나만 존재할 수도 있다.
         
-- aptitude와 apt의 차이
+> aptitude와 apt의 차이
     - APT(Advanced Packaging Tool)
         - 소프트웨어 설치와 삭제를 지원하는 무료 오픈소스 소프트웨어
         - Debian의 .deb 패키지를 지원하기 위해 디자인 되었지만, RPM Package Manage와 호환된다.
@@ -354,7 +402,7 @@ hours: 40
         | 커맨드 라인을 포함한 반응형 UI를 제공한다. | 커맨드 라인만 제공한다. |
         | 충돌이 일어나도 조정가능한 부분을 추천해주고 충돌을 제거한다. | 충돌이 일어나면 명령을 끝내버린다. |
         | 패키징 과정을 자동화하여 쉽게 작업하도록 도와준다. | 제대로된 사용을 위해 많은 지식을 요구한다. |
-- SSH
+> SSH
     - SSH(Secure Shell)
         
         원격 호스트에 접속하기 위해 사용되는 보안 프로토콜
@@ -414,7 +462,7 @@ hours: 40
             // -p 옵션으로 포트번호를 지정할 수 있다.
             ```
             
-- UFW
+> UFW
     - Firewall(방화벽)
         
         방화벽은 미리 정의된 보안 규칙에 기반한, 들어오고 나가는 네트워크 트래픽을 모니터링하고 제어하는 네트워크 보안 시스템이다.
@@ -442,11 +490,11 @@ hours: 40
         
         `ufw deny (포트넘버)`: 특정 포트넘버 접속 제한
         
-- DNF
+> DNF
     
     `RPM` 기반 리눅스 배포판에서 사용하는 패키지 관리도구
     
-- sudo
+> sudo
     - Super User Do(또는 Substitute User Do)의 줄임말
         - 각종 명령어 앞에 sudo를 붙이면 해당 명령어는 root 권한(최고 관리자 권한)으로 실행된다.
             
@@ -487,7 +535,7 @@ hours: 40
             시스템 침입자는 sudo를 사용할 수 없다.
             
         
-- TTY
+> TTY
     
     우리가 사용하는 리눅스 환경은 TTY(Teletypewriter) 위에 그려져있다.
     데스크탑 gui(xwindows) 환경은 실질적으로 콘솔 위에 올려져 있는 것이다.
@@ -514,7 +562,7 @@ hours: 40
         - PTY - pseudo terminal(가상 터미널)
         - PTS - 리눅스 커널 옵션에 /dev/pts 부분을 의미하고, 파일 시스템이다.
     
-- cron
+> cron
     - cron - daemon to execute scheduled commands
         
         (예약된 명령들을 실행하는 백그라운드 프로그램)
@@ -571,7 +619,7 @@ hours: 40
                 - `crontab -r` 예약된 작업 삭제
                 - `crontab -u <유저명>` 해당 유저의 crontab 파일을 보거나 삭제, 편집 가능
                 
-- GRBU(부트로더)
+> GRBU(부트로더)
     
     GRUB는 ‘Grand Unified Bootloader’의 약자로, GNU 하에서 개발된 멀티 부트로더이다.
     
@@ -579,7 +627,7 @@ hours: 40
     
     시스템에 전원이 공급되면 ROM-BIOS에서 시스템 제어권을 가지고, 장착된 하드웨어 점검과 인식을 한다. 그 후, ROM-BIOS는 첫 번째 부트 섹터인 MBR에 있는 부트로더에게 그 제어권을 넘겨준다.
     
-- apt-get
+> apt-get
     
     데비안(Debian) 계열 리눅스에서 사용하는 패키지 관리 명령어 도구
     
@@ -597,11 +645,11 @@ hours: 40
     
     apt를 이용해서 설치된 deb패키지는 /var/cache/apt/archive/ 에 설치된다.
     
-- 포트  포워딩
+> 포트  포워딩
     
-    [포트 포워딩을 왜 하는 거야?](https://www.notion.so/df2b0eb2b5ee442ea91ee4d533ef2600)
+    [포트 포워딩을 왜 하는 거야?](https://velog.io/@dha/%ED%8F%AC%ED%8A%B8-%ED%8F%AC%EC%9B%8C%EB%94%A9-%EC%99%9C-%ED%95%98%EB%8A%94-%EA%B1%B8%EA%B9%8C)
     
-- Port
+> Port
     - Port
         
         TCP 또는 UDP에서 어플리케이션이 상호 구분을 위해 사용하는 번호이다.
@@ -628,7 +676,7 @@ hours: 40
         - 등록 포트 - 1024 ~ 49151 / 국제 도메인 관리기구에 등록
         - 동적 포트 - 49152 - 65535 / 임시 포트, 어떤 프로세스든 임의로 사용 가능
     
-- 논리 프로세서
+> 논리 프로세서
     - 우리는 일반적으로 `processor 0 ~ n` 이라고 할 때, 실제 CPU 개수를 n개라고 생각하지만, 이는 틀렸다.
         
         일반적으로 CPU는 다수의 코어를 가지고, 인텔 하이퍼-스레딩 기술을 통해 논리적으로 CPU 개수를 두배로 늘린다.
@@ -637,7 +685,7 @@ hours: 40
         
         (하지만, 하이퍼 스레딩을 지원하지 않는 경우 `논리 프로세서 개수 = 물리 CPU 개수 * CPU 별 코어 개수` 가 된다.)
         
-- Kernel
+> Kernel
     
     커널은 운영체제의 심장이자 운영체제를 규정짓는 매우 중요한 부분이다.
     
@@ -649,8 +697,6 @@ hours: 40
     
 
 ## 참고자료
-
-[Git - 서버에 Git 설치하기](https://git-scm.com/book/ko/v2/Git-%EC%84%9C%EB%B2%84-%EC%84%9C%EB%B2%84%EC%97%90-Git-%EC%84%A4%EC%B9%98%ED%95%98%EA%B8%B0)
 
 [Git - 프로토콜](https://git-scm.com/book/ko/v2/Git-%EC%84%9C%EB%B2%84-%ED%94%84%EB%A1%9C%ED%86%A0%EC%BD%9C)
 
